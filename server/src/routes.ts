@@ -1,4 +1,4 @@
-import express, { request, response } from 'express'
+import express from 'express'
 
 import PointsController from './controllers/PointsController'
 import ItemsController from './controllers/ItemsController'
