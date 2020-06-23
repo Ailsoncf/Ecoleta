@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Feather as Icon } from '@expo/vector-icons'
-import { View, Image, StyleSheet, Text, ImageBackground,} from 'react-native'
+import { View, Image, StyleSheet, Text, ImageBackground, TextInput, KeyboardAvoidingView} from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
 
 
 const Home = () => {
-
+    const [ uf, setUf ] = useState('')
+    const [ city, setCity ] = useState('')
     const navigation = useNavigation()
 
     function handleNavigateToPoints(){
-      navigation.navigate('Points')
+      navigation.navigate('Points', {
+        uf,
+        city
+      })
     }
 
     return(
+      <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={-1000} >
         <ImageBackground 
             source={require('../../assets/home-background.png')} 
             style={styles.container}
@@ -22,11 +27,31 @@ const Home = () => {
             
             <View style={styles.main}>
                 <Image source={require('../../assets/logo.png')} />
-                <Text style={styles.title} >Seu MarketPlace de Coleta de Resíduos.</Text>
-                <Text style={styles.description} >Ajudamos pessoas a encontar pontos de coleta de forma eficiente.</Text>
+                <View>
+                  <Text style={styles.title} >Seu MarketPlace de Coleta de Resíduos.</Text>
+                  <Text style={styles.description} >Ajudamos pessoas a encontar pontos de coleta de forma eficiente.</Text>
+                </View>
             </View>
 
             <View style={styles.footer} >
+                <TextInput 
+                  style={styles.input}
+                  placeholder='Digite a UF' 
+                  value={uf}
+                  maxLength={2}
+                  autoCapitalize='characters'
+                  autoCorrect={false}
+                  onChangeText={setUf}
+                ></TextInput>
+
+                <TextInput 
+                  style={styles.input}
+                  placeholder='Digite a Cidade' 
+                  value={city}
+                  autoCorrect={false}
+                  onChangeText={setCity}
+                ></TextInput>
+
                 <RectButton style={styles.button} onPress={ handleNavigateToPoints } >
                     <View style={styles.buttonIcon} >
                         <Text>
@@ -37,6 +62,7 @@ const Home = () => {
                 </RectButton>
             </View>
         </ImageBackground >
+      </KeyboardAvoidingView>
     )
 }
 
@@ -77,6 +103,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#FFF',
       borderRadius: 10,
       marginBottom: 8,
+      paddingBottom:20,
       paddingHorizontal: 24,
       fontSize: 16,
     },
