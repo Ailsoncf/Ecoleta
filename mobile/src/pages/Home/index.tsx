@@ -18,7 +18,7 @@ const Home = () => {
     }
 
     return(
-      <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={-1000} >
+      <KeyboardAvoidingView style={{ flex: 1 }} keyboardVerticalOffset={-500} behavior='padding' >
         <ImageBackground 
             source={require('../../assets/home-background.png')} 
             style={styles.container}
