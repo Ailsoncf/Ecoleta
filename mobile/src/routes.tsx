@@ -8,12 +8,12 @@ import Detail from './pages/Detail'
 
 const AppStack = createStackNavigator()
 
-const Routes = () =>{
+const Routes = () => {
     return (
         <NavigationContainer>
-            <AppStack.Navigator 
+            <AppStack.Navigator
                 headerMode='none'
-                screenOptions={{ 
+                screenOptions={{
                     cardStyle: {
                         backgroundColor: '#f0f0f5'
                     }
