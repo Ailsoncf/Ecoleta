@@ -31,7 +31,7 @@ const CreatePoint = () => {
     const [ufs, setUfs] = useState<string[]>([])
     const [cities, setcities] = useState<string[]>([])
 
-    const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0])
+    const [initialPosition, setInitialPosition] = useState<[number, number]>([0, 0])
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -42,7 +42,7 @@ const CreatePoint = () => {
     const [selectedUF, setSelectedUF] = useState('0')
     const [selectedCity, setSelectedCity] = useState('0')
     const [selectedItems, setSelectedItems] = useState<number[]>([])
-    const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0,0])
+    const [selectedPosition, setSelectedPosition] = useState<[number, number]>([0, 0])
     const [selectedFile, setSelectedFile] = useState<File>()
 
     const history = useHistory()
@@ -51,11 +51,11 @@ const CreatePoint = () => {
         navigator.geolocation.getCurrentPosition(position => {
             const { latitude, longitude } = position.coords
 
-            setInitialPosition([ latitude, longitude ])
+            setInitialPosition([latitude, longitude])
         })
     }, [])
 
-    useEffect(() =>{
+    useEffect(() => {
         api.get('items').then(response => {
             setItems(response.data)
         })
@@ -70,7 +70,7 @@ const CreatePoint = () => {
     }, [])
 
     useEffect(() => {
-        if(selectedUF === '0'){
+        if (selectedUF === '0') {
             return
         }
 
@@ -84,54 +84,54 @@ const CreatePoint = () => {
 
     }, [selectedUF])
 
-    function handleSelectedUF(event: ChangeEvent<HTMLSelectElement>){
-       const uf = event.target.value
+    function handleSelectedUF(event: ChangeEvent<HTMLSelectElement>) {
+        const uf = event.target.value
 
-       setSelectedUF(uf)
+        setSelectedUF(uf)
     }
 
-    function handleSelectedCity(event: ChangeEvent<HTMLSelectElement>){
+    function handleSelectedCity(event: ChangeEvent<HTMLSelectElement>) {
         const city = event.target.value
- 
-        setSelectedCity(city)
-     }
 
-     function handleMapClick(event: LeafletMouseEvent){
+        setSelectedCity(city)
+    }
+
+    function handleMapClick(event: LeafletMouseEvent) {
         setSelectedPosition([
             event.latlng.lat,
             event.latlng.lng
         ])
-     }
+    }
 
-     function handleInputChange(event:ChangeEvent<HTMLInputElement>){
+    function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target
 
         setFormData({ ...formData, [name]: value })
-     }
+    }
 
-     function handleSelectItem(id: number){
+    function handleSelectItem(id: number) {
         const alreadySelected = selectedItems.findIndex(item => item === id)
 
-        if(alreadySelected >= 0) {
+        if (alreadySelected >= 0) {
             const filteredItems = selectedItems.filter(item => item !== id)
             setSelectedItems(filteredItems)
-        } else{
-            setSelectedItems([ ...selectedItems, id ])
+        } else {
+            setSelectedItems([...selectedItems, id])
         }
 
-     }
-    
-    async function handleSubmit(event: FormEvent){
+    }
+
+    async function handleSubmit(event: FormEvent) {
         event.preventDefault()
 
-        const {name, email, whatsapp} = formData
+        const { name, email, whatsapp } = formData
         const uf = selectedUF
         const city = selectedCity
         const [latitude, longitude] = selectedPosition
         const items = selectedItems
 
         const data = new FormData()
-      
+
         data.append('name', name)
         data.append('email', email)
         data.append('whatsapp', whatsapp)
@@ -140,8 +140,8 @@ const CreatePoint = () => {
         data.append('latitude', String(latitude))
         data.append('longitude', String(longitude))
         data.append('items', items.join(','))
-    
-        if(selectedFile){
+
+        if (selectedFile) {
             data.append('image', selectedFile)
         }
 
@@ -153,9 +153,9 @@ const CreatePoint = () => {
     }
 
     return (
-        <div  id="page-create-point">
+        <div id="page-create-point">
             <header>
-                <img src={logo} alt="logo"/>
+                <img src={logo} alt="logo" />
                 <Link to='/'>
                     <FiArrowLeft />
                     Voltar para Home
@@ -173,8 +173,8 @@ const CreatePoint = () => {
                     </legend>
                     <div className="field">
                         <label htmlFor="name">Nome da Entidade</label>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             name='name'
                             id='name'
                             onChange={handleInputChange}
@@ -184,8 +184,8 @@ const CreatePoint = () => {
                     <div className="field-group">
                         <div className="field">
                             <label htmlFor="email">E-mail</label>
-                            <input 
-                                type="email" 
+                            <input
+                                type="email"
                                 name='email'
                                 id='email'
                                 onChange={handleInputChange}
@@ -193,8 +193,8 @@ const CreatePoint = () => {
                         </div>
                         <div className="field">
                             <label htmlFor="whatsapp">Whatsapp</label>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 name='whatsapp'
                                 id='whatsapp'
                                 onChange={handleInputChange}
@@ -221,23 +221,23 @@ const CreatePoint = () => {
                     <div className="field-group">
                         <div className="field">
                             <label htmlFor="uf">Estado (UF)</label>
-                            <select 
-                                name="uf" 
-                                id="uf" 
-                                value={selectedUF} 
+                            <select
+                                name="uf"
+                                id="uf"
+                                value={selectedUF}
                                 onChange={handleSelectedUF}
                             >
                                 <option value="0">Selecione uma UF</option>
                                 {ufs.map(uf => (
-                                    <option key={uf} value={uf}>{uf }</option>
+                                    <option key={uf} value={uf}>{uf}</option>
                                 ))}
                             </select>
                         </div>
                         <div className="field">
                             <label htmlFor="city">Cidade</label>
-                            <select 
-                                name="city" 
-                                id="cite" 
+                            <select
+                                name="city"
+                                id="cite"
                                 value={selectedCity}
                                 onChange={handleSelectedCity}
                             >
@@ -258,17 +258,17 @@ const CreatePoint = () => {
                     </legend>
 
                     <ul className="items-grid">
-                    {items.map( item => (
-                        <li 
-                            key={item.id} 
-                            onClick={() => handleSelectItem(item.id)}
-                            className={selectedItems.includes(item.id) ? 'selected' : ''}
-                        >
-                            <img src={item.image_url} alt={item.title}/>
-                            <span>{item.title}</span>
-                        </li>
-                    ))}
-                        
+                        {items.map(item => (
+                            <li
+                                key={item.id}
+                                onClick={() => handleSelectItem(item.id)}
+                                className={selectedItems.includes(item.id) ? 'selected' : ''}
+                            >
+                                <img src={item.image_url} alt={item.title} />
+                                <span>{item.title}</span>
+                            </li>
+                        ))}
+
                     </ul>
                 </fieldset>
 
