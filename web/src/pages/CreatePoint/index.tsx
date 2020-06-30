@@ -8,7 +8,7 @@ import { LeafletMouseEvent } from 'leaflet'
 
 import Dropzone from '../../components/dropzone'
 
-import '../CreatePoint/styles.css';
+import { Container, Form, FieldGroup, ItemsList } from './styles';
 
 import logo from '../../assets/logo.svg'
 
@@ -153,7 +153,8 @@ const CreatePoint = () => {
     }
 
     return (
-        <div id="page-create-point">
+        <div>
+        <Container>
             <header>
                 <img src={logo} alt="logo" />
                 <Link to='/'>
@@ -162,7 +163,7 @@ const CreatePoint = () => {
                 </Link>
             </header>
 
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
                 <h1>Cadastro do Ponto de Coleta</h1>
 
                 <Dropzone onFileUploaded={setSelectedFile} />
@@ -181,7 +182,7 @@ const CreatePoint = () => {
                         />
                     </div>
 
-                    <div className="field-group">
+                        <FieldGroup>
                         <div className="field">
                             <label htmlFor="email">E-mail</label>
                             <input
@@ -191,6 +192,7 @@ const CreatePoint = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
+                        
                         <div className="field">
                             <label htmlFor="whatsapp">Whatsapp</label>
                             <input
@@ -200,7 +202,7 @@ const CreatePoint = () => {
                                 onChange={handleInputChange}
                             />
                         </div>
-                    </div>
+                        </FieldGroup>
 
                 </fieldset>
 
@@ -218,7 +220,7 @@ const CreatePoint = () => {
                         <Marker position={selectedPosition} />
                     </Map>
 
-                    <div className="field-group">
+                    <FieldGroup>
                         <div className="field">
                             <label htmlFor="uf">Estado (UF)</label>
                             <select
@@ -247,7 +249,7 @@ const CreatePoint = () => {
                                 ))}
                             </select>
                         </div>
-                    </div>
+                    </FieldGroup>
 
                 </fieldset>
 
@@ -257,7 +259,7 @@ const CreatePoint = () => {
                         <span>Selecione um ou mais ítens abaixo </span>
                     </legend>
 
-                    <ul className="items-grid">
+                    <ItemsList>
                         {items.map(item => (
                             <li
                                 key={item.id}
@@ -269,11 +271,12 @@ const CreatePoint = () => {
                             </li>
                         ))}
 
-                    </ul>
+                    </ItemsList >
                 </fieldset>
 
                 <button type='submit'>Cadastrar Ponto de Coleta</button>
-            </form>
+            </Form >
+        </Container >
         </div>
     )
 }
