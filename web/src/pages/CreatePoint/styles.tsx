@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  background: white;
+  background: '#fff';
   > header {
     margin-top: 48px;
     display: flex;
@@ -75,7 +75,7 @@ export const Form = styled.form`
     input[type='email'],
     input[type='number'] {
       flex: 1;
-      background: var(--background-color);
+      background: #F0F0F5;
       border-radius: 8px;
       border: 0;
       padding: 16px 24px;
@@ -87,7 +87,7 @@ export const Form = styled.form`
       -moz-appearance: none;
       appearance: none;
       flex: 1;
-      background: var(--background-color);
+      background: #F0F0F5;
       border-radius: 8px;
       border: 0;
       padding: 16px 24px;
@@ -102,7 +102,7 @@ export const Form = styled.form`
     flex-direction: row;
     align-items: center;
     input[type='checkbox'] {
-      background: var(--background-color);
+      background: #F0F0F5;
     }
     label {
       margin: 0 0 0 8px;
@@ -161,7 +161,7 @@ export const ItemsList = styled.ul`
       cursor: pointer;
       background: ${({ theme }) =>
         theme.title === 'light' ? '#f5f5f5' : '#ddd'};
-      border: 2px solid var(--background-color);;
+      border: 2px solid #F0F0F5;
       width: 100%;
       height: 180px;
       border-radius: 8px;
