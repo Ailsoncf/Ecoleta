@@ -152,6 +152,11 @@ export const ItemsList = styled.ul`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    padding: 8px;
+    &.selected {
+        background: #e1faec;
+        border: 1px solid #34cb79;
+      }
     > button {
       display: flex;
       flex-direction: column;
@@ -159,8 +164,7 @@ export const ItemsList = styled.ul`
       align-items: center;
       text-align: center;
       cursor: pointer;
-      background: ${({ theme }) =>
-        theme.title === 'light' ? '#f5f5f5' : '#ddd'};
+      background: '#f5f5f5';
       border: 2px solid #F0F0F5;
       width: 100%;
       height: 180px;
@@ -173,10 +177,7 @@ export const ItemsList = styled.ul`
         align-items: center;
         color: #322153;
       }
-      &.selected {
-        background: #e1faec;
-        border: 2px solid #34cb79;
-      }
+      
     }
   }
 `;
