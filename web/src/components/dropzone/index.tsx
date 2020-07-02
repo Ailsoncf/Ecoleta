@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FiUpload } from 'react-icons/fi'
 
-import './styles.css'
+import Container from './styles'
 
 interface Props {
   onFileUploaded: (file: File) => void
@@ -26,7 +26,7 @@ const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
   })
 
   return (
-    <div className='dropzone' {...getRootProps()}>
+    <Container {...getRootProps()}>
       <input {...getInputProps()} accept='image/*' />
 
       {selectedFileUrl
@@ -39,7 +39,7 @@ const Dropzone: React.FC<Props> = ({ onFileUploaded }) => {
         )
       }
 
-    </div>
+    </Container>
   )
 }
 
