@@ -1,4 +1,7 @@
-:root {
+import { createGlobalStyle } from 'styled-components'
+
+export default createGlobalStyle `
+  :root {
     --primary-color: #34CB79;
     --title-color: #322153;
     --text-color: #6C6C80;
@@ -25,4 +28,6 @@
     color: var(--title-color);
     font-family: Ubuntu;
   }
+`
+
   
