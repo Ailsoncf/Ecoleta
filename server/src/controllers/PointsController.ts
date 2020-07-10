@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import knex from '../database/connections'
 
 
+
 class PointsController {
     async index(request: Request, response: Response) {
         const { city, uf, items } = request.query
@@ -65,7 +66,7 @@ class PointsController {
             items
         } = request.body
     
-        const trx = await knex.transaction()
+        /*const trx = await knex.transaction()
     
         const point = {
             image: request.file.filename,
@@ -94,12 +95,37 @@ class PointsController {
     
         await trx('point_items').insert(pointItems)
     
-        await trx.commit()
+        await trx.commit()*/
 
-        return response.json({
+        return response.json(
+            request.body/*{
             id:point_id,
             ...point
-        })
+        }*/)
+    }
+
+    async update(request: Request, response: Response){
+    
+        const { id } = request.params
+        const {
+            name,
+            email,
+            whatsapp,
+            latitude,
+            longitude,
+            city,
+            uf,
+            items
+        } = request.body
+
+     const point = await knex('points')
+        .where('id', id)
+        .first()
+
+        if (!point) return response.status(404).json({ error: "Point not Found!" })
+       
+        return response.json({ id})
+
     }
 
     async delete(request: Request, response: Response) {

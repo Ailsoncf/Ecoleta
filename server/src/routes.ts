@@ -31,7 +31,7 @@ routes.post(
       longitude: Joi.number().required(),
       city: Joi.string().required(),
       uf: Joi.string().required().max(2),
-      items: Joi.number().required()
+      items: Joi.allow()
     })
   },{
     abortEarly: false
@@ -39,6 +39,7 @@ routes.post(
   pointsController.create
   )
 
+routes.put('/points/:id', upload.single('image'), pointsController.update )
 routes.delete('/points/:id', pointsController.delete )
 
 export default routes
