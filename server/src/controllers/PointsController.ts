@@ -104,7 +104,6 @@ class PointsController {
     }
 
     async update(request: Request, response: Response){
-    
         const { id } = request.params
 
         const {
@@ -125,6 +124,7 @@ class PointsController {
         if (!point) return response.status(404).json({ error: "Point not Found!" })
 
         const updatePoint = {
+            image: request.file.filename,
             name,
             email,
             whatsapp,
