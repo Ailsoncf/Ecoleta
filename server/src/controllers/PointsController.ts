@@ -66,7 +66,7 @@ class PointsController {
             items
         } = request.body
     
-        /*const trx = await knex.transaction()
+        const trx = await knex.transaction()
     
         const point = {
             image: request.file.filename,
@@ -95,18 +95,18 @@ class PointsController {
     
         await trx('point_items').insert(pointItems)
     
-        await trx.commit()*/
+        await trx.commit()
 
-        return response.json(
-            request.body/*{
+        return response.json({
             id:point_id,
             ...point
-        }*/)
+        })
     }
 
     async update(request: Request, response: Response){
     
         const { id } = request.params
+
         const {
             name,
             email,
@@ -118,13 +118,47 @@ class PointsController {
             items
         } = request.body
 
-     const point = await knex('points')
-        .where('id', id)
-        .first()
+        const point = await knex('points')
+            .where('id', id)
+            .first()
 
         if (!point) return response.status(404).json({ error: "Point not Found!" })
+
+        const updatePoint = {
+            name,
+            email,
+            whatsapp,
+            latitude,
+            longitude,
+            city,
+            uf
+        }
+        
+        const trx = await knex.transaction()
+
+        await trx('points')
+            .where('id', id)
+            .update(updatePoint)
+    
+            const pointItems = items
+            .split(',')
+            .map((item:string) => Number(item.trim()))
+            .map((item_id: number) =>{
+                return{
+                    item_id,
+                    point_id: id
+            }
+        })
+    
+        await trx('point_items')
+            .where('point_id', id)
+            .delete()
+    
+        await trx('point_items').insert(pointItems)
+    
+        await trx.commit()
        
-        return response.json({ id})
+        return response.json(updatePoint)
 
     }
 
